@@ -6,16 +6,39 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
+// ===================================================================
+// MCP Authentication Middleware
+// ===================================================================
+const authMiddleware = (req, res, next) => {
+    const providedApiKey = req.header('X-API-KEY');
+    const expectedApiKey = process.env.MCP_SERVER_API_KEY;
+
+    if (!expectedApiKey) {
+        console.error('CRITICAL: MCP_SERVER_API_KEY is not set in environment. Denying all requests.');
+        return res.status(500).send({ error: 'Server configuration error' });
+    }
+
+    if (!providedApiKey || providedApiKey !== expectedApiKey) {
+        console.warn(`Unauthorized request attempt. Provided key: ${providedApiKey}`);
+        return res.status(401).send({ error: 'Unauthorized' });
+    }
+
+    // If the keys match, proceed to the next handler.
+    next();
+};
+// ===================================================================
+
 app.get('/', (req, res) => {
-    res.status(200).send('The MCP server wrapper is running. Send POST requests to /api/rpc');
+    res.status(200).send('MCP server is running.');
 });
 
-app.post('/api/rpc', (req, res) => {
-    console.log('Spawning the MCP server...');
+// The POST route is protected by the MCP authentication middleware.
+app.post('/api/rpc', authMiddleware, (req, res) => {
+    console.log('Spawning the MCP server for an authenticated request...');
     const mcpServer = spawn('node', ['build/index.js']);
     
     let stdoutData = '';
-    let stderrData = ''; // We'll still capture stderr for logging, but won't treat it as a fatal error
+    let stderrData = '';
 
     mcpServer.stdout.on('data', (data) => {
         stdoutData += data.toString();
@@ -32,7 +55,6 @@ app.post('/api/rpc', (req, res) => {
             console.log(`Note: Data was received on stderr: ${stderrData}`);
         }
 
-        // The MOST IMPORTANT CHANGE: We only fail if the exit code was NOT 0.
         if (code !== 0) {
             console.error(`Process failed with exit code ${code}.`);
             return res.status(500).json({ 
@@ -43,7 +65,6 @@ app.post('/api/rpc', (req, res) => {
             });
         }
 
-        // Success! The exit code was 0. The real data is in stdout.
         console.log('Process succeeded. Sending stdout data as response.');
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send(stdoutData);

@@ -8,6 +8,8 @@ This MCP server enables interaction with our WooCommerce stores through the Word
 
 A MCP server created using this repo is currently deployed as the **luxeon-mcp** service on our elestio account [our elestio account](https://github.com/warrisr/gitlux/blob/main/docs/wordpress-environment.md)
 
+The deployment of this repo on elestio was long and complex, but was ultimately successful. See the 
+
 
 ## Deployment on Elestio
 This application is a command-line tool and not a standard web server. To deploy it as a web-accessible API in our Elestio account, it must be wrapped in a web server (like Express), and the platform's Docker environment must be configured correctly.

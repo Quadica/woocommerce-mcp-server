@@ -4,7 +4,9 @@ A Model Context Protocol (MCP) server for WooCommerce integration, compatible wi
 
 ## Overview
 
-This MCP server enables interaction with WooCommerce stores through the WordPress REST API. It provides comprehensive tools for managing all aspects of products, orders, customers, shipping, taxes, discounts, and store configuration using JSON-RPC 2.0 protocol.
+This MCP server enables interaction with our WooCommerce stores through the WordPress REST API. It provides comprehensive tools for managing all aspects of products, orders, customers, shipping, taxes, discounts, and store configuration using JSON-RPC 2.0 protocol.
+
+A MCP server using that was created using this repo is currently deployed on the **luxeon-mcp** service on our elestio account [our elestio account](https://github.com/warrisr/gitlux/blob/main/docs/wordpress-environment.md)
 
 
 ## Deployment on Elestio

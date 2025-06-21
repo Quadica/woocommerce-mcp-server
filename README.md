@@ -6,6 +6,53 @@ A Model Context Protocol (MCP) server for WooCommerce integration, compatible wi
 
 This MCP server enables interaction with WooCommerce stores through the WordPress REST API. It provides comprehensive tools for managing all aspects of products, orders, customers, shipping, taxes, discounts, and store configuration using JSON-RPC 2.0 protocol.
 
+
+## Deployment on Elestio
+This application is a command-line tool and not a standard web server. To deploy it as a web-accessible API in our Elestio account, it must be wrapped in a web server (like Express), and the platform's Docker environment must be configured correctly.
+
+The deployment process requires the following key configurations:
+
+### 1. Web Server Wrapper
+A server.js file has been added to the root of the project. This file creates an Express.js server that listens for HTTP requests and executes the core application (build/index.js) as a child process, piping data back and forth.
+
+### 2. Environment Variables
+The application requires the following environment variables to be set in the Elestio "ENV" tab for the luxeonstar.com site:
+
+```
+DOMAIN=luxeon-mcp-u44324.vm.elestio.app
+WORDPRESS_SITE_URL=https://stg-luxeonstarleds-lxplugin.kinsta.cloud/
+WOOCOMMERCE_CONSUMER_KEY=ck_xxxxxx
+WOOCOMMERCE_CONSUMER_SECRET=cs_xxxxxx
+WORDPRESS_USERNAME=ronw
+WORDPRESS_PASSWORD=xxxxx
+```
+
+### 3. Docker Compose Configuration
+The Elestio "Docker Compose" configuration for the app service must be modified to correctly run the application. The final app service definition should look like this:
+
+```
+app:
+   build:
+    context: ./nodejs
+    dockerfile: Dockerfile
+    args:
+      - SOFTWARE_VERSION_TAG=${SOFTWARE_VERSION_TAG}
+   restart: unless-stopped
+   container_name: app-nodejs
+   ports:
+    - '172.17.0.1:3000:3000'
+   volumes:
+     - /usr/src/app:/usr/src/app
+   working_dir: /usr/src/app
+   env_file:
+     - .env
+   command: npm start
+   depends_on:
+    - redis
+```
+
+
+
 ## Installation
 
 1. Clone the repository

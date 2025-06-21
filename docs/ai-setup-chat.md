@@ -1,4 +1,7 @@
-# Deploy WooCommerce MCP Node.js on Elestio - Technical Support Conversation
+# Gemini AI Conversation About Deploy WooCommerce MCP Node.js on Elestio
+Deploying the Woocommerce MCP Server using the code in the repo was long and difficult. As a reference, here is the entire chat I had with the Gemini AI that details the entire deployment process.
+
+When I was done, I did update the files in this repo to match the final configuration that worked.
 
 ## Initial Request
 

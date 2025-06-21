@@ -29,7 +29,9 @@ WOOCOMMERCE_CONSUMER_KEY=ck_xxxxxx
 WOOCOMMERCE_CONSUMER_SECRET=cs_xxxxxx
 WORDPRESS_USERNAME=ronw
 WORDPRESS_PASSWORD=xxxxx
+MCP_SERVER_API_KEY=xxxxx
 ```
+The currently used keys will be visible in the elestio ENV tab.
 
 ### 3. Docker Compose Configuration
 The Elestio "Docker Compose" configuration for the app service must be modified to correctly run the application. The final app service definition should look like this:

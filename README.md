@@ -393,11 +393,24 @@ All methods follow a similar parameter structure. Here are some examples:
 
 For WooCommerce REST API access, you need to generate API keys. You can create them in your WordPress dashboard under WooCommerce → Settings → Advanced → REST API.
 
-## Requirements
 
-- Node.js 20.0.0 or higher
-- WordPress site with WooCommerce plugin installed
-- WooCommerce REST API keys
+## Requirements
+This project has different requirements depending on whether you are running the pre-compiled code or modifying the source code.
+
+### To Run the Deployed Application
+* **Node.js 20.0.0 or higher**: The execution environment for the server.
+* **NPM (Node Package Manager)**: Required to install dependencies.
+* **Express.js**: This project uses the Express framework to function as a web server. It is listed as a dependency and will be installed automatically with npm install.
+
+### External Services
+* A publicly accessible WordPress site with the WooCommerce plugin installed and active.
+* WooCommerce REST API keys (Consumer Key and Consumer Secret) with Read/Write permissions.
+* A WordPress user account (username and application password) with sufficient permissions to interact with WooCommerce.
+
+### To Modify the Source Code (Development)
+* All of the above.
+* **TypeScript**: The project's source code is written in TypeScript (/src directory). The devDependencies include the necessary TypeScript packages.
+* **Build Step**: Before the application can be run, the TypeScript source code must be compiled into JavaScript. This is done by running the build script defined in package.json:
 
 ## License
 

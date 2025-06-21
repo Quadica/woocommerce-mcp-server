@@ -1,6 +1,6 @@
 # WooCommerce MCP Server On The Luxeon Site
 
-A Model Context Protocol (MCP) server for WooCommerce integration, compatible with Windows, macOS, and Linux.
+Details about the deployment of a Model Context Protocol (MCP) server on the luxeonstar.com website.
 
 ## Overview
 

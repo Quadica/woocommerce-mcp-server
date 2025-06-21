@@ -412,6 +412,11 @@ This project has different requirements depending on whether you are running the
 * **TypeScript**: The project's source code is written in TypeScript (/src directory). The devDependencies include the necessary TypeScript packages.
 * **Build Step**: Before the application can be run, the TypeScript source code must be compiled into JavaScript. This is done by running the build script defined in package.json:
 
+```
+# This command compiles the code from /src into JavaScript in the /build directory.
+npm run build
+```
+
 ## License
 
 MIT License - See LICENSE file for details
